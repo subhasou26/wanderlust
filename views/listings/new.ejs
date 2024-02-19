@@ -8,6 +8,12 @@
         <div class="mb-3">
           <label for="title" class="form-lable">Title</label>
           <input type="text" name="listing[title]" class="form-control" required/>
+          <div class="valid-feedback">
+            Looks Good!
+          </div>
+          <div class="invalid-feedback">
+            Give Title
+          </div>
         </div>
 
         <div class="mb-3">
@@ -19,6 +25,9 @@
             class="form-control"
             required
           ></textarea>
+          <div class="invalid-feedback">
+            Give Description
+          </div>
         </div>
 
         <div class="mb-3">
@@ -29,12 +38,18 @@
         <div class="row">
             <div class="mb-3 col-4">
                 <label for="price" class="form-lable">Price</label>
-                <input type="number" name="listing[price]" class="form-control"  required/>
+                <input type="text" name="listing[price]" class="form-control"  required/>
+                <div class="invalid-feedback">
+                  Enter valid Price
+                </div>
               </div>
       
               <div class="mb-3 col-md-8">
                   <label for="country" class="form-lable">Country</label>
                   <input type="text" name="listing[country]" class="form-control" required  />
+                  <div class="invalid-feedback">
+                    Enter Valid Country
+                  </div>
                 </div>
         </div>
       
@@ -42,6 +57,9 @@
         <div class="mb-3">
           <label for="location" class="form-lable">Location</label>
           <input type="text" name="listing[location]" class="form-control" required/>
+          <div class="invalid-feedback">
+            Enter valid Location
+          </div>
         </div>
 
         <button class="btn add-btn">Add</button>
