@@ -56,6 +56,10 @@ flex-direction: column;
     border: none !important;
     margin-bottom: 2rem;
 }
+.review-card{
+    border: 1px solid grey;
+    border-radius: 1rem;
+}
 .card-img-top{
     border-radius: 1rem !important;
     width: 100% !important;

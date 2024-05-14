@@ -9,7 +9,8 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync");
 const ExpressError=require("./utils/ExpressError");
-const {listingSchema}=require("./schema");
+const {listingSchema,reviewSchema}=require("./schema");
+const Review = require("./models/review.js");
 main()
   .then((res) => {
     console.log("connect to db");
@@ -43,6 +44,18 @@ else{
   
 }
 
+
+const validateReview=(req,res,next)=>{
+  let {error}=reviewSchema.validate(req.body);
+if(error){
+  let errMsg=error.details.map((el)=>el.message).join(",");
+  throw new ExpressError(404,errMsg);
+}
+else{
+  next();
+}
+  
+}
 // app.get("/testlisting",async(req,res)=>{
 //     let sampleListing=new Listing({
 //         title:"Home",
@@ -67,7 +80,7 @@ app.get("/listings/new", (req, res) => {
 // show route
 app.get("/listings/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
-  const listing = await Listing.findById(id);
+  const listing = await Listing.findById(id).populate("reviews");
   res.render("listings/show.ejs", { listing });
 }));
 // create route
@@ -97,9 +110,36 @@ wrapAsync( async (req, res) => {
 app.delete("/listings/:id",wrapAsync( async (req, res) => {
   let { id } = req.params;
   let deletedlisting = await Listing.findByIdAndDelete(id);
-  console.log(deletedlisting);
+  //console.log(deletedlisting);
   res.redirect("/listings");
 }));
+
+//review post route
+app.post("/listings/:id/reviews",validateReview,wrapAsync( async (req,res)=>{
+  let{id}=req.params;
+ let listing=await Listing.findById(id);
+
+ let newReview=new Review(req.body.review);
+
+ listing.reviews.push(newReview);
+
+ await newReview.save();
+ await listing.save();
+ res.redirect(`/listings/${listing._id}`);
+}));
+
+
+// Delete review
+app.delete("/listings/:id/reviews/:reviewId",
+wrapAsync(async(req,res)=>{
+  let{id,reviewId}=req.params;
+ await Listing.findByIdAndUpdate(id,{$pull:{reviews:reviewId}})
+  await Review.findByIdAndDelete(reviewId);
+  res.redirect(`/listings/${id}`);
+}));
+
+
+
 
 //page not found
 app.all("*",(req,res,next)=>{
