@@ -2,7 +2,7 @@
 <body>
     <div class="row">
         <div class="col-8 offset-2">
-    <form action="/listings/<%=listing._id%>?_method=PUT" method="POST"  class="needs-validation" novalidate>
+    <form action="/listings/<%=listing._id%>?_method=PUT" method="POST"  class="needs-validation" novalidate enctype="multipart/form-data">
         <div class="mb-3">
             <label for="title" class="form-lable">Title</label>
             <input type="text" name="listing[title]" value="<%=listing.title%>" class="form-control" required>
@@ -24,16 +24,12 @@
                 Give Description
               </div>
         </div>
-       
+        <div class="mb-3">
+          <img src="<%=originalImageUrl%>"  alt="listing image">
+      </div>
         <div class="mb-3">
             <label for="image" class="form-lable">Image</label>
-            <input type="text" name="listing[image]" value="<%=listing.image%>" class="form-control" required>
-            <div class="valid-feedback">
-                Looks Good!
-              </div>
-              <div class="invalid-feedback">
-                Give Image Link
-              </div>
+            <input type="file" name="listing[image]"  class="form-control" >
         </div>
        <div class="row">
         <div class="mb-3 col-4">

@@ -1,4 +1,5 @@
 <%layout("/layouts/boilerplate")%>
+
 <body>
     <h3>All listings</h3>
     <!-- <form action="/listings/new" method="GET">
@@ -8,7 +9,7 @@
         <% for(let listing of listings){ %>
             <a href="/listings/<%=listing._id%>" class="listing-link">
             <div class="card col" >
-                <img src="<%=listing.image%>" class="card-img-top" alt="Image" style="height: 18rem;">
+                <img src="<%=listing.image.url%>" class="card-img-top" alt="Image" style="height: 18rem;">
                 <div class="card-img-overlay"></div>
                 <div class="card-body">
                  <b> <p class="card-text"><%=listing.title%></b>
