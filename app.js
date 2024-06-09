@@ -5,7 +5,7 @@ if(process.env.NODE_ENV!="production"){
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const mongourl = "mongodb://127.0.0.1:27017/wanderlust";
+const mongourl = process.env.ATLAS_KEY;
 const path = require("path");
 const exp = require("constants");
 const methodOverride = require("method-override");
@@ -46,9 +46,7 @@ const sessionOption={
     htppOnly:true,
   }
 };
-app.get("/", (req, res) => {
-  res.send("hi i am root");
-});
+
 app.use(session(sessionOption));
 app.use(flash());
 

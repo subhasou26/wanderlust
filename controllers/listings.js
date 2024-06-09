@@ -37,9 +37,9 @@ let responce=await  geocodingClient.forwardGeocode({
     query: req.body.listing.location,
     limit: 1
   })
-    .send()
+    .send();
 
-res.send("done");
+
   let url=req.file.path;
   let filename=req.file.filename;
  
