@@ -5,7 +5,7 @@ if(process.env.NODE_ENV!="production"){
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const dbUrl = process.env.ATLAS_KEY;
+const dbUrl =process.env.ATLAS_KEY;
 const path = require("path");
 const exp = require("constants");
 const methodOverride = require("method-override");
@@ -81,7 +81,9 @@ app.use((req,res,next)=>{
   res.locals.currUser=req.user; 
   next();
 });
-
+app.get("/",(req,res)=>{
+  res.redirect("/listings");
+});
 app.use("/listings", listingRouter);
 //review post route
 app.use("/listings/:id/reviews",reviewRouter);
